@@ -613,15 +613,16 @@ plot.design = function(D, IMSPE, batch.size){
   axis(1, pos = -1.05, at = c(-1,-.5,0,.5,1), cex.axis = 1.5)
   axis(2, pos = -1.05, at = c(-1,-.5,0,.5,1), cex.axis = 1.5)
   if(batch.size == 0){
-    title(main = paste("Size ", size, " design, IMSPE=", round(IMSPE,5), sep = ''), 
-          cex.main = 2)
+    title(main = paste("Size ", size, " design, IMSPE=", round(IMSPE,5), 
+                       sep = ''), cex.main = 2)
   } else{
-    points(D[(size+1):(dim(D)[1]),], lwd = 2.5, cex=3, bg = 'light gray', pch = 21)
+    points(D[(size+1):(dim(D)[1]),], lwd = 2.5, cex=3, bg = 'light gray', 
+           pch = 21)
     title(main = paste("Size ", size, "+", batch.size, " design, IMSPE=", 
                        round(IMSPE,5), sep = ''), 
           cex.main = 2)
-    legend(1.05, .15, c("1st Batch", "2nd Batch"), pch = c(19,21), xpd=1, pt.cex=2.5, 
-           pt.lwd=2.5, cex = 2, pt.bg = c(1, 'light gray'))
+    legend(1.05, .15, c("1st Batch", "2nd Batch"), pch = c(19,21), xpd=1, 
+           pt.cex=2.5, pt.lwd=2.5, cex = 2, pt.bg = c(1, 'light gray'))
   }
   
 }
@@ -673,7 +674,8 @@ Batch.Size = 7
 #*******************************************************************************
 #* Solving the Integral Equation (for display purposes, on the [-1,1] interval
 #*******************************************************************************
-fred = Fredholm.Solution(theta, n, alpha, c(-1,1), design.size, lambda.nugget, 0)
+fred = Fredholm.Solution(theta, n, alpha, c(-1,1), design.size, 
+                         lambda.nugget, 0)
 x = fred$x
 list.of.pairs = fred$list.of.pairs
 lambda.large.permanent = fred$lambda.large
@@ -737,15 +739,16 @@ open3d(windowRect=c(100,100,1000,750))
 bg3d("white")
 material3d(col="black")	
 
-persp3d(x, x, Kar_Loe_Reconst, col = "light green", xlim = range(x), ylim = range(x), 
-        zlim = range(Kar_Loe_Reconst, na.rm = TRUE),
-        theta=35, phi=20, axes = 0, xlab = "", ylab = "", zlab = "", smooth=FALSE)
+persp3d(x, x, Kar_Loe_Reconst, col = "light green", xlim = range(x), 
+        ylim = range(x), zlim = range(Kar_Loe_Reconst, na.rm = TRUE),
+        theta=35, phi=20, axes = 0, xlab = "", ylab = "", zlab = "", 
+        smooth=FALSE)
 
 
 dev.new(height = 6, width = 6)
 par(mar = c(5,5,5,2))
-filled.contour3(x, x, Kar_Loe_Reconst, color = femmecol, xlab = expression(X[1]), 
-                ylab = expression(X[2]), cex.lab = 1.6)
+filled.contour3(x, x, Kar_Loe_Reconst, color = femmecol, 
+                xlab = expression(X[1]), ylab = expression(X[2]), cex.lab = 1.6)
 contour(x, x, Kar_Loe_Reconst, add = T)
 
 
@@ -797,7 +800,7 @@ r = error.analysis(D.simple.rescaled$Design, theta, M.permanent, n,
 #*******************************************************************************
 #* Generating IMSPE-optimal design for the advanced model (using the optimum of 
 #* the simple model as a starting point)
-#********************************************************************************************
+#*******************************************************************************
 start = c(D.simple$Design)
 D.advanced = IMSPE.optim.advanced(start, design.size, d, epsilon, theta, ends, 
                                   M, lambda.large, Integral.vec, phi1.splines, 
@@ -821,8 +824,8 @@ points(D.advanced.rescaled$Design, lwd = 2, cex = 3)
 
 
 #*******************************************************************************
-#* Plotting the prior and posterior variances of the (infinitely many) regression 
-#* coefficients
+#* Plotting the prior and posterior variances of the (infinitely many)
+#* regression coefficients
 #*******************************************************************************
 post.vars = diag(D.advanced$varcov)
 dev.new(width = 12, height = 7)
@@ -856,7 +859,7 @@ if(lambda.nugget > 0){
                              lambda.large.permanent, Integral.vec.permanent, 
                              phi1.splines.permanent, phi2.splines.permanent, 0)
 }
-#********************************************************************************************
+#*******************************************************************************
 
 
 
@@ -923,8 +926,9 @@ Criteria.comp(D.advanced.rescaled$Design, D.simple.rescaled$Design,
 if(lambda.nugget > 0)
 {
   start = c(D.advanced$Design)
-  D.opt = D.optim.advanced(start, design.size, d, epsilon, theta, ends, M, lambda.large, 
-                           phi1.splines, phi2.splines, lambda.nugget)
+  D.opt = D.optim.advanced(start, design.size, d, epsilon, theta, ends, M, 
+                           lambda.large, phi1.splines, phi2.splines, 
+                           lambda.nugget)
   D.opt.rescaled = rescale(D.opt, ends, theta, M.permanent, 
                            lambda.large.permanent, Integral.vec.permanent, 
                            phi1.splines.permanent, phi2.splines.permanent, 0)
